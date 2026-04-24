@@ -11,34 +11,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import polymarket.bot.model.*;
+import polymarket.bot.model.repository.EventRepository;
+import polymarket.bot.rest.gamma.api.model.*;
+import polymarket.bot.rest.gamma.service.EventApiService;
+import polymarket.bot.sync.config.EventsConfig;
+import polymarket.bot.sync.util.SlugUtil;
+
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import polymarket.bot.model.Category;
-import polymarket.bot.model.Chat;
-import polymarket.bot.model.Event;
-import polymarket.bot.model.EventCollection;
-import polymarket.bot.model.EventCreator;
-import polymarket.bot.model.FeeSchedule;
-import polymarket.bot.model.ImageOptimized;
-import polymarket.bot.model.Market;
-import polymarket.bot.model.Series;
-import polymarket.bot.model.Tag;
-import polymarket.bot.model.Template;
-import polymarket.bot.model.repository.EventRepository;
-import polymarket.bot.sync.config.EventsConfig;
-import polymarket.bot.rest.gamma.api.model.BCategoryDTO;
-import polymarket.bot.rest.gamma.api.model.BChatDTO;
-import polymarket.bot.rest.gamma.api.model.BCollectionDTO;
-import polymarket.bot.rest.gamma.api.model.BEventCreatorDTO;
-import polymarket.bot.rest.gamma.api.model.BEventDetailDTO;
-import polymarket.bot.rest.gamma.api.model.BFeeScheduleDTO;
-import polymarket.bot.rest.gamma.api.model.BImageOptimizedDTO;
-import polymarket.bot.rest.gamma.api.model.BMarketDTO;
-import polymarket.bot.rest.gamma.api.model.BSeriesDTO;
-import polymarket.bot.rest.gamma.api.model.BTagDTO;
-import polymarket.bot.rest.gamma.api.model.BTemplateDTO;
-import polymarket.bot.rest.gamma.service.EventApiService;
-import polymarket.bot.sync.util.SlugUtil;
 
 @Slf4j
 @Service
@@ -56,183 +37,288 @@ public class EventService {
     // BTC
     @Scheduled(fixedDelay = 10000)
     public void syncBtc5mEvent() {
-        if (eventsConfig.isEnabled("btc", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.BTC_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("btc", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.BTC_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.BTC_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBtc15mEvent() {
-        if (eventsConfig.isEnabled("btc", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.BTC_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("btc", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.BTC_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.BTC_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBtc1hEvent() {
-        if (eventsConfig.isEnabled("btc", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.BTC_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("btc", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.BTC_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.BTC_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBtc4hEvent() {
-        if (eventsConfig.isEnabled("btc", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.BTC_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("btc", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.BTC_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.BTC_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBtcDailyEvent() {
-        if (eventsConfig.isEnabled("btc", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.BTC_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("btc", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.BTC_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.BTC_SLUG_PREFIX));
+        }
     }
 
     // ETH
     @Scheduled(fixedDelay = 10000)
     public void syncEth5mEvent() {
-        if (eventsConfig.isEnabled("eth", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.ETH_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("eth", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.ETH_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.ETH_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncEth15mEvent() {
-        if (eventsConfig.isEnabled("eth", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.ETH_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("eth", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.ETH_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.ETH_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncEth1hEvent() {
-        if (eventsConfig.isEnabled("eth", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.ETH_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("eth", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.ETH_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.ETH_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncEth4hEvent() {
-        if (eventsConfig.isEnabled("eth", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.ETH_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("eth", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.ETH_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.ETH_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncEthDailyEvent() {
-        if (eventsConfig.isEnabled("eth", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.ETH_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("eth", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.ETH_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.ETH_SLUG_PREFIX));
+        }
     }
 
     // SOL
     @Scheduled(fixedDelay = 10000)
     public void syncSol5mEvent() {
-        if (eventsConfig.isEnabled("sol", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.SOL_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("sol", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.SOL_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.SOL_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncSol15mEvent() {
-        if (eventsConfig.isEnabled("sol", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.SOL_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("sol", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.SOL_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.SOL_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncSol1hEvent() {
-        if (eventsConfig.isEnabled("sol", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.SOL_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("sol", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.SOL_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.SOL_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncSol4hEvent() {
-        if (eventsConfig.isEnabled("sol", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.SOL_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("sol", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.SOL_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.SOL_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncSolDailyEvent() {
-        if (eventsConfig.isEnabled("sol", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.SOL_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("sol", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.SOL_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.SOL_SLUG_PREFIX));
+        }
     }
 
     // DOGE
     @Scheduled(fixedDelay = 10000)
     public void syncDoge5mEvent() {
-        if (eventsConfig.isEnabled("doge", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("doge", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.DOGE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncDoge15mEvent() {
-        if (eventsConfig.isEnabled("doge", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("doge", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.DOGE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncDoge1hEvent() {
-        if (eventsConfig.isEnabled("doge", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("doge", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.DOGE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncDoge4hEvent() {
-        if (eventsConfig.isEnabled("doge", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("doge", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.DOGE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.DOGE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncDogeDailyEvent() {
-        if (eventsConfig.isEnabled("doge", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.DOGE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("doge", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.DOGE_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.DOGE_SLUG_PREFIX));
+        }
     }
 
     // HYPE
     @Scheduled(fixedDelay = 10000)
     public void syncHype5mEvent() {
-        if (eventsConfig.isEnabled("hype", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("hype", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.HYPE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncHype15mEvent() {
-        if (eventsConfig.isEnabled("hype", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("hype", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.HYPE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncHype1hEvent() {
-        if (eventsConfig.isEnabled("hype", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("hype", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.HYPE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncHype4hEvent() {
-        if (eventsConfig.isEnabled("hype", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("hype", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.HYPE_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.HYPE_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncHypeDailyEvent() {
-        if (eventsConfig.isEnabled("hype", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.HYPE_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("hype", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.HYPE_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.HYPE_SLUG_PREFIX));
+        }
     }
 
     // XRP
     @Scheduled(fixedDelay = 10000)
     public void syncXrp5mEvent() {
-        if (eventsConfig.isEnabled("xrp", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.XRP_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("xrp", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.XRP_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.XRP_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncXrp15mEvent() {
-        if (eventsConfig.isEnabled("xrp", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.XRP_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("xrp", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.XRP_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.XRP_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncXrp1hEvent() {
-        if (eventsConfig.isEnabled("xrp", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.XRP_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("xrp", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.XRP_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.XRP_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncXrp4hEvent() {
-        if (eventsConfig.isEnabled("xrp", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.XRP_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("xrp", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.XRP_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.XRP_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncXrpDailyEvent() {
-        if (eventsConfig.isEnabled("xrp", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.XRP_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("xrp", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.XRP_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.XRP_SLUG_PREFIX));
+        }
     }
 
     // BNB
     @Scheduled(fixedDelay = 10000)
     public void syncBnb5mEvent() {
-        if (eventsConfig.isEnabled("bnb", "5m")) syncEvent(SlugUtil.next5mSlug(SlugUtil.BNB_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("bnb", "5m")) {
+            syncEvent(SlugUtil.current5mSlug(SlugUtil.BNB_SLUG_PREFIX));
+            syncEvent(SlugUtil.next5mSlug(SlugUtil.BNB_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBnb15mEvent() {
-        if (eventsConfig.isEnabled("bnb", "15m")) syncEvent(SlugUtil.next15mSlug(SlugUtil.BNB_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("bnb", "15m")) {
+            syncEvent(SlugUtil.current15mSlug(SlugUtil.BNB_SLUG_PREFIX));
+            syncEvent(SlugUtil.next15mSlug(SlugUtil.BNB_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBnb1hEvent() {
-        if (eventsConfig.isEnabled("bnb", "1h")) syncEvent(SlugUtil.next1hSlug(SlugUtil.BNB_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("bnb", "1h")) {
+            syncEvent(SlugUtil.current1hSlug(SlugUtil.BNB_SLUG_PREFIX));
+            syncEvent(SlugUtil.next1hSlug(SlugUtil.BNB_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBnb4hEvent() {
-        if (eventsConfig.isEnabled("bnb", "4h")) syncEvent(SlugUtil.next4hSlug(SlugUtil.BNB_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("bnb", "4h")) {
+            syncEvent(SlugUtil.current4hSlug(SlugUtil.BNB_SLUG_PREFIX));
+            syncEvent(SlugUtil.next4hSlug(SlugUtil.BNB_SLUG_PREFIX));
+        }
     }
 
     @Scheduled(fixedDelay = 10000)
     public void syncBnbDailyEvent() {
-        if (eventsConfig.isEnabled("bnb", "1d")) syncEvent(SlugUtil.nextDailySlug(SlugUtil.BNB_SLUG_PREFIX));
+        if (eventsConfig.isEnabled("bnb", "1d")) {
+            syncEvent(SlugUtil.currentDailySlug(SlugUtil.BNB_SLUG_PREFIX));
+            syncEvent(SlugUtil.nextDailySlug(SlugUtil.BNB_SLUG_PREFIX));
+        }
     }
 
     private void syncEvent(String slug) {
@@ -356,7 +442,8 @@ public class EventService {
     }
 
     private ImageOptimized toImageOptimized(BImageOptimizedDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         ImageOptimized img = new ImageOptimized();
         img.setImageUrlSource(dto.getImageUrlSource());
         img.setImageUrlOptimized(dto.getImageUrlOptimized());
@@ -371,7 +458,8 @@ public class EventService {
     }
 
     private Category toCategory(BCategoryDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         Category cat = new Category();
         cat.setId(dto.getId());
         cat.setLabel(dto.getLabel());
@@ -386,7 +474,8 @@ public class EventService {
     }
 
     private Chat toChat(BChatDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         Chat chat = new Chat();
         chat.setId(dto.getId());
         chat.setChannelId(dto.getChannelId());
@@ -399,7 +488,8 @@ public class EventService {
     }
 
     private EventCollection toCollection(BCollectionDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         EventCollection col = new EventCollection();
         col.setId(dto.getId());
         col.setTicker(dto.getTicker());
@@ -434,7 +524,8 @@ public class EventService {
     }
 
     private EventCreator toEventCreator(BEventCreatorDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         EventCreator ec = new EventCreator();
         ec.setId(dto.getId());
         ec.setCreatorName(dto.getCreatorName());
@@ -447,7 +538,8 @@ public class EventService {
     }
 
     private Tag toTag(BTagDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         Tag tag = new Tag();
         tag.setId(dto.getId());
         tag.setLabel(dto.getLabel());
@@ -464,7 +556,8 @@ public class EventService {
     }
 
     private Template toTemplate(BTemplateDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         Template tmpl = new Template();
         tmpl.setId(dto.getId());
         tmpl.setEventTitle(dto.getEventTitle());
@@ -482,7 +575,8 @@ public class EventService {
     }
 
     private FeeSchedule toFeeSchedule(BFeeScheduleDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         FeeSchedule fs = new FeeSchedule();
         fs.setExponent(dto.getExponent());
         fs.setRate(dto.getRate());
@@ -492,7 +586,8 @@ public class EventService {
     }
 
     private Market toMarket(BMarketDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         Market m = new Market();
         m.setId(dto.getId());
         m.setQuestion(dto.getQuestion());
@@ -651,7 +746,8 @@ public class EventService {
     }
 
     private Series toSeries(BSeriesDTO dto) {
-        if (dto == null) return null;
+        if (dto == null)
+            return null;
         Series s = new Series();
         s.setId(dto.getId());
         s.setTicker(dto.getTicker());
@@ -695,42 +791,50 @@ public class EventService {
     }
 
     private List<Market> toMarkets(List<BMarketDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toMarket).collect(Collectors.toList());
     }
 
     private List<Series> toSeriesList(List<BSeriesDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toSeries).collect(Collectors.toList());
     }
 
     private List<Category> toCategories(List<BCategoryDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toCategory).collect(Collectors.toList());
     }
 
     private List<EventCollection> toCollections(List<BCollectionDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toCollection).collect(Collectors.toList());
     }
 
     private List<Tag> toTags(List<BTagDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toTag).collect(Collectors.toList());
     }
 
     private List<EventCreator> toEventCreators(List<BEventCreatorDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toEventCreator).collect(Collectors.toList());
     }
 
     private List<Chat> toChats(List<BChatDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toChat).collect(Collectors.toList());
     }
 
     private List<Template> toTemplates(List<BTemplateDTO> dtos) {
-        if (dtos == null) return null;
+        if (dtos == null)
+            return null;
         return dtos.stream().map(this::toTemplate).collect(Collectors.toList());
     }
 

@@ -117,6 +117,20 @@ public interface DBConstants {
         String RELNAME = "relname";
     }
 
+    interface EVENT_ORDER_BOOK {
+        String COLLECTION_NAME = "eventOrderBook";
+        String SLUG = "slug";
+        String UP_BIDS = "upBids";
+        String DOWN_BIDS = "downBids";
+        String UP_ASKS = "upAsks";
+        String DOWN_ASKS = "downAsks";
+
+        interface PRICE {
+            String PRICE = "price";
+            String SIZE = "size";
+        }
+    }
+
     interface EVENT_MARKET_PRICE {
         String COLLECTION_NAME = "eventMarketPrice";
         String SLUG = "slug";
