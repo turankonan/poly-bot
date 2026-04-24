@@ -11,7 +11,8 @@
       "Bash(xargs cat *)",
       "Bash(git -C /Users/turankonan/Desktop/Claude/Projects/bot ls-files --others --exclude-standard)",
       "Bash(grep \" [0-9]$\")",
-      "Bash(grep -v \"target$\")"
+      "Bash(grep -v \"target$\")",
+      "WebFetch(domain:docs.polymarket.com)"
     ]
   }
 }
