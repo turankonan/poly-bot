@@ -1,10 +1,10 @@
 {
     // ── Java Runtime ──────────────────────────────────────────────────────
-    "java.jdt.ls.java.home": "${env:JAVA_HOME_23}",
+    "java.jdt.ls.java.home": "/Users/turankonan/Library/Java/JavaVirtualMachines/openjdk-23.0.1/Contents/Home",
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-23",
-            "path": "${env:JAVA_HOME_23}",
+            "path": "/Users/turankonan/Library/Java/JavaVirtualMachines/openjdk-23.0.1/Contents/Home",
             "default": true
         }
     ],
@@ -39,7 +39,7 @@
         ]
     },
     // ── Spring Boot ───────────────────────────────────────────────────────
-    "spring-boot.ls.java.home": "${env:JAVA_HOME_23}",
+    "spring-boot.ls.java.home": "/Users/turankonan/Library/Java/JavaVirtualMachines/openjdk-23.0.1/Contents/Home",
     "spring-boot.ls.problem.application-properties.UNKNOWN_PROPERTY_KEY": "WARNING",
     // ── Editör ────────────────────────────────────────────────────────────
     "editor.tabSize": 4,
@@ -89,7 +89,7 @@
     },
     // ── Terminal ──────────────────────────────────────────────────────────
     "terminal.integrated.env.osx": {
-        "JAVA_HOME": "${env:JAVA_HOME_23}"
+        "JAVA_HOME": "/Users/turankonan/Library/Java/JavaVirtualMachines/openjdk-23.0.1/Contents/Home"
     },
     // ── Git ───────────────────────────────────────────────────────────────
     "git.autofetch": true,
@@ -111,5 +111,6 @@
         "config": "config",
         "util": "tools",
         "service": "middleware"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

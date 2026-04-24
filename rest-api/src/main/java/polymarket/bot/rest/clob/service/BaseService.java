@@ -11,13 +11,13 @@ import retrofit2.Response;
 @Slf4j
 public abstract class BaseService<A> {
 
-    @Value("${polymarket.clob.api.url}")
+    @Value("${polymarket.api.url.clob}")
     protected String serviceUrl;
 
-    @Value("${polymarket.clob.api.connectTimeout:30}")
+    @Value("${polymarket.api.connectTimeout:30}")
     protected Integer connectTimeout;
 
-    @Value("${polymarket.clob.api.readTimeout:30}")
+    @Value("${polymarket.api.readTimeout:30}")
     protected Integer readTimeout;
 
     protected abstract A serviceApi();

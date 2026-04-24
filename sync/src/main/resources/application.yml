@@ -14,8 +14,14 @@ spring:
     mongodb:
       auto-index-creation: true
 
-polymarket.gamma.api.url: https://gamma-api.polymarket.com/
-polymarket.clob.api.url: https://clob.polymarket.com/
+polymarket:
+  privateKey: 0x0
+  proxyAddress: 0x0
+  chainId: 137
+  api:
+    url:
+      gamma: https://gamma-api.polymarket.com/
+      clob: https://clob.polymarket.com/
 
 coins:
   events:

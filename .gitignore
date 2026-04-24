@@ -74,3 +74,9 @@ crashlytics-build.properties
 # Misc
 .DS_Store
 HELP.md
+
+# Python
+python-service/.env
+python-service/__pycache__/
+python-service/*.pyc
+python-service/.venv/
