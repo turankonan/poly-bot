@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkApi {
 
     private static NetworkApi instance;
-
+    
     private EventApi eventApi;
 
     public static NetworkApi instance(String serviceUrl, Integer connectTimeout, Integer readTimeout) {

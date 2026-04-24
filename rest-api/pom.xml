@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-          <groupId>polymarket.bot</groupId>
-          <artifactId>gateway</artifactId>
-          <version>1.0.0</version>
+        <groupId>polymarket.bot</groupId>
+        <artifactId>gateway</artifactId>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>rest-api</artifactId>
@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>polymarket.bot</groupId>
-            <artifactId>model</artifactId>
+            <artifactId>common</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -78,6 +78,26 @@
                             <inputSpec>${project.basedir}/src/main/resources/swagger/clob-api.yaml</inputSpec>
                             <apiPackage>polymarket.bot.rest.clob.api</apiPackage>
                             <modelPackage>polymarket.bot.rest.clob.api.model</modelPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>

@@ -2,13 +2,12 @@ package polymarket.bot.rest.clob;
 
 import java.util.concurrent.TimeUnit;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import polymarket.bot.common.interceptor.BaseNetworkLoggingInterceptor;
 import polymarket.bot.common.util.GsonUtil;
 import polymarket.bot.rest.clob.api.BookApi;
 import polymarket.bot.rest.clob.api.PriceApi;
-
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Data

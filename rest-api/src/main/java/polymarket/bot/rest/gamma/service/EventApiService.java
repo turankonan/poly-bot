@@ -10,12 +10,12 @@ import polymarket.bot.rest.gamma.api.model.BEventDetailDTO;
 @Slf4j
 @Service("eventApiService")
 public class EventApiService extends BaseService<EventApi> {
-
+    
     @Override
     protected EventApi serviceApi() {
         return NetworkApi.instance(serviceUrl, connectTimeout, readTimeout).getEventApi();
     }
-
+    
     public BEventDetailDTO list(String slug) {
         return getResponse(serviceApi().eventDetail(slug));
     }
