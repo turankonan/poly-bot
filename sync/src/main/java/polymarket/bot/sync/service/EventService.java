@@ -5,9 +5,12 @@ import java.util.stream.Collectors;
 
 import jakarta.annotation.Resource;
 
+import org.json.JSONArray;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import polymarket.bot.model.Category;
 import polymarket.bot.model.Chat;
@@ -201,6 +204,14 @@ public class EventService {
         event.setEventCreators(toEventCreators(dto.getEventCreators()));
         event.setChats(toChats(dto.getChats()));
         event.setTemplates(toTemplates(dto.getTemplates()));
+
+        if (!CollectionUtils.isEmpty(event.getMarkets())) {
+            for (Market market : event.getMarkets()) {
+                event.setUpTokenId(market.getUpTokenId());
+                event.setDownTokenId(market.getDownTokenId());
+            }
+        }
+
         return event;
     }
 
@@ -482,6 +493,20 @@ public class EventService {
         m.setEventStartTime(dto.getEventStartTime());
         m.setFeesEnabled(dto.getFeesEnabled());
         m.setFeeSchedule(toFeeSchedule(dto.getFeeSchedule()));
+
+        if (StringUtils.isNotBlank(m.getClobTokenIds())) {
+            try {
+                JSONArray clobTokenIds = new JSONArray(m.getClobTokenIds());
+                String upTokenId = clobTokenIds.getString(0);
+                String downTokenId = clobTokenIds.getString(1);
+
+                m.setUpTokenId(upTokenId);
+                m.setDownTokenId(downTokenId);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        }
+
         return m;
     }
 

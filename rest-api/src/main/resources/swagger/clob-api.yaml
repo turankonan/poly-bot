@@ -1,0 +1,62 @@
+openapi: 3.0.1
+info:
+  title: Polymarket CLOB API
+  version: '1.0'
+servers:
+  - url: 'https://clob.polymarket.com'
+tags:
+  - name: price
+paths:
+  /prices:
+    post:
+      tags:
+        - price
+      operationId: price_detail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PriceDetailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/PriceDetailResponse"
+components:
+  schemas:
+    PriceDetailRequest:
+      type: object
+      properties:
+        token_id:
+          type: string
+        side:
+          type: string
+          enum:
+            - BUY
+            - SELL
+    PriceDetailResponse:
+      type: object
+      description: Map of token ID to best price by side
+      additionalProperties:
+        $ref: '#/components/schemas/TokenBestPrice'
+    TokenBestPrice:
+      type: object
+      description: Best price for a single side (BUY or SELL) of a token
+      properties:
+        BUY:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+        SELL:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+      minProperties: 1
+      maxProperties: 1

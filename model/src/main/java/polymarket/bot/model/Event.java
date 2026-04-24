@@ -21,6 +21,12 @@ public class Event extends BaseObject {
     @Field(DBConstants.EVENT.SLUG)
     private String slug;
 
+    @Field(DBConstants.EVENT.UP_TOKEN_ID)
+    private String upTokenId;
+
+    @Field(DBConstants.EVENT.DOWN_TOKEN_ID)
+    private String downTokenId;
+
     @Field(DBConstants.EVENT.TITLE)
     private String title;
 

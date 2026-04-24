@@ -59,7 +59,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>api</id>
+                        <id>gamma</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -67,6 +67,17 @@
                             <inputSpec>${project.basedir}/src/main/resources/swagger/gamma-api.yaml</inputSpec>
                             <apiPackage>polymarket.bot.rest.gamma.api</apiPackage>
                             <modelPackage>polymarket.bot.rest.gamma.api.model</modelPackage>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>clob</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger/clob-api.yaml</inputSpec>
+                            <apiPackage>polymarket.bot.rest.clob.api</apiPackage>
+                            <modelPackage>polymarket.bot.rest.clob.api.model</modelPackage>
                         </configuration>
                     </execution>
                 </executions>

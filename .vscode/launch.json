@@ -3,20 +3,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "EventService",
-            "request": "launch",
-            "mainClass": "polymarket.com.tr.dor.sync.service.EventService",
-            "projectName": "sync"
-        },
-        {
-            "type": "java",
-            "name": "EventService",
-            "request": "launch",
-            "mainClass": "apprecode.com.tr.dor.sync.service.EventService",
-            "projectName": "sync"
-        },
-        {
-            "type": "java",
             "name": "sync-run (local)",
             "request": "launch",
             "cwd": "${workspaceFolder}",

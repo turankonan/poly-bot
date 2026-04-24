@@ -18,6 +18,8 @@ public interface DBConstants {
         String COLLECTION_NAME = "event";
         String TICKER = "ticker";
         String SLUG = "slug";
+        String UP_TOKEN_ID = "upTokenId";
+        String DOWN_TOKEN_ID = "downTokenId";
         String TITLE = "title";
         String SUBTITLE = "subtitle";
         String DESCRIPTION = "description";
@@ -262,6 +264,8 @@ public interface DBConstants {
         String QUESTION = "question";
         String CONDITION_ID = "conditionId";
         String SLUG = "slug";
+        String UP_TOKEN_ID = "upTokenId";
+        String DOWN_TOKEN_ID = "downTokenId";
         String TWITTER_CARD_IMAGE = "twitterCardImage";
         String RESOLUTION_SOURCE = "resolutionSource";
         String END_DATE = "endDate";

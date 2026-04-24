@@ -23,6 +23,12 @@ public class Market {
     @Field(DBConstants.MARKET.SLUG)
     private String slug;
 
+    @Field(DBConstants.MARKET.UP_TOKEN_ID)
+    private String upTokenId;
+
+    @Field(DBConstants.MARKET.DOWN_TOKEN_ID)
+    private String downTokenId;
+
     @Field(DBConstants.MARKET.TWITTER_CARD_IMAGE)
     private String twitterCardImage;
 
