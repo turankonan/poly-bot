@@ -41,22 +41,11 @@
             "problemMatcher": []
         },
         {
-            "label": "mvn: regenerate OpenAPI (api)",
+            "label": "mvn: regenerate OpenAPI (rest-api)",
             "type": "shell",
             "command": "mvn",
             "args": [
-                "-pl", "api",
-                "-am",
-                "generate-sources"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "mvn: regenerate OpenAPI (foodics-api)",
-            "type": "shell",
-            "command": "mvn",
-            "args": [
-                "-pl", "foodics-api",
+                "-pl", "rest-api",
                 "-am",
                 "generate-sources"
             ],

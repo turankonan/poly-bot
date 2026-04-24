@@ -1,38 +1,26 @@
 {
-    // Workspace-recommended extensions for this Java / Spring Boot / MongoDB project.
-    // VS Code will prompt the user to install these when the workspace is opened.
     "recommendations": [
-        // --- Core Java toolchain ---
-        "vscjava.vscode-java-pack",        // Java Extension Pack (JDT LS + Debugger + Test + Maven + Project Manager + IntelliCode)
-        "redhat.java",                     // Language support for Java (Eclipse JDT LS) — included in pack, pinned explicitly
-        "vscjava.vscode-maven",            // Maven for Java
-        "vscjava.vscode-java-debug",       // Java Debugger
-        "vscjava.vscode-java-test",        // Java Test Runner (JUnit/TestNG)
-        "vscjava.vscode-java-dependency",  // Project Manager for Java
-        "vscjava.vscode-lombok",           // Lombok annotation support (needed for this codebase)
+        // ── Java core ─────────────────────────────────────────────────────
+        "vscjava.vscode-java-pack",          // Language Support, Debugger, Test Runner, Maven, Project Manager
+        "vscjava.vscode-java-dependency",    // Dependency Viewer (multi-module Maven görselleştirme)
 
-        // --- Spring Boot tooling ---
-        "vmware.vscode-boot-dev-pack",     // Spring Boot Extension Pack
-        "vmware.vscode-spring-boot",       // Spring Boot Tools (application.yml IntelliSense, live beans, etc.)
-        "vscjava.vscode-spring-boot-dashboard",
-        "vscjava.vscode-spring-initializr",
+        // ── Spring Boot ───────────────────────────────────────────────────
+        "vmware.vscode-spring-boot",         // Bean navigation, live hovers, property completion
+        "vscjava.vscode-spring-initializr",  // Yeni proje oluşturma
+        "vscjava.vscode-spring-boot-dashboard", // Uygulama başlatma / durdurma paneli
 
-        // --- MongoDB ---
-        "mongodb.mongodb-vscode",          // MongoDB for VS Code (connect, run queries, Playgrounds)
+        // ── API & YAML ────────────────────────────────────────────────────
+        "42crunch.vscode-openapi",           // OpenAPI/Swagger YAML editörü + preview
+        "redhat.vscode-yaml",               // application.yml tamamlama ve doğrulama
+        "redhat.vscode-xml",                // pom.xml syntax highlight + şema doğrulama
+        "humao.rest-client",                // .http dosyalarıyla API testi (Postman alternatifi)
 
-        // --- YAML / XML / OpenAPI ---
-        "redhat.vscode-yaml",              // YAML language support (application.yml, swagger specs)
-        "redhat.vscode-xml",               // XML language support (pom.xml, logback)
-        "42crunch.vscode-openapi",         // OpenAPI (Swagger) editor for swagger/*.yaml files
+        // ── Kod kalitesi ──────────────────────────────────────────────────
+        "sonarsource.sonarlint-vscode",     // Gerçek zamanlı kod kalite analizi
 
-        // --- Quality of life ---
-        // "usernamehw.errorlens",            // Inline diagnostics
-        "eamodio.gitlens",                 // Git blame / history inline
-        "gruntfuggly.todo-tree",           // TODO/FIXME tracker
-        "streetsidesoftware.code-spell-checker"
-    ],
-    "unwantedRecommendations": [
-        // Project is Maven-only; Gradle extension auto-starts unnecessary build-servers.
-        "vscjava.vscode-gradle"
+        // ── Üretkenlik ────────────────────────────────────────────────────
+        "eamodio.gitlens",                  // Git blame / history satır bazında
+        "pkief.material-icon-theme",        // Dosya ikonları (Maven modülleri için net görünüm)
+        "streetsidesoftware.code-spell-checker" // Yazım denetimi (log mesajları, javadoc)
     ]
 }

@@ -15,3 +15,49 @@ spring:
       auto-index-creation: true
 
 polymarket.gamma.api.url: https://gamma-api.polymarket.com/
+polymarket.clob.api.url: https://clob.polymarket.com/
+
+coins:
+  events:
+    btc:
+      5m: true
+      15m: false
+      1h: false
+      4h: false
+      1d: false
+    eth:
+      5m: false
+      15m: false
+      1h: false
+      4h: false
+      1d: false
+    sol:
+      5m: false
+      15m: false
+      1h: false
+      4h: false
+      1d: false
+    doge:
+      5m: false
+      15m: false
+      1h: false
+      4h: false
+      1d: false
+    hype:
+      5m: false
+      15m: false
+      1h: false
+      4h: false
+      1d: false
+    xrp:
+      5m: false
+      15m: false
+      1h: false
+      4h: false
+      1d: false
+    bnb:
+      5m: false
+      15m: false
+      1h: false
+      4h: false
+      1d: false

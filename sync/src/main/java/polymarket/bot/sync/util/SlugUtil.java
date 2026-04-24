@@ -36,16 +36,34 @@ public class SlugUtil {
         return base + "-5m-" + nextSlot;
     }
 
+    public static String current5mSlug(String base) {
+        long now = Instant.now().getEpochSecond();
+        long currentSlot = (now / FIVE_MINUTES_SECONDS) * FIVE_MINUTES_SECONDS;
+        return base + "-5m-" + currentSlot;
+    }
+
     public static String next15mSlug(String base) {
         long now = Instant.now().getEpochSecond();
         long nextSlot = ((now / FIFTEEN_MINUTES_SECONDS) + 1) * FIFTEEN_MINUTES_SECONDS;
         return base + "-15m-" + nextSlot;
     }
 
+    public static String current15mSlug(String base) {
+        long now = Instant.now().getEpochSecond();
+        long currentSlot = (now / FIFTEEN_MINUTES_SECONDS) * FIFTEEN_MINUTES_SECONDS;
+        return base + "-15m-" + currentSlot;
+    }
+
     public static String next4hSlug(String base) {
         long now = Instant.now().getEpochSecond();
         long nextSlot = ((now / FOUR_HOURS_SECONDS) + 1) * FOUR_HOURS_SECONDS;
         return base + "-4h-" + nextSlot;
+    }
+
+    public static String current4hSlug(String base) {
+        long now = Instant.now().getEpochSecond();
+        long currentSlot = (now / FOUR_HOURS_SECONDS) * FOUR_HOURS_SECONDS;
+        return base + "-4h-" + currentSlot;
     }
 
     public static String next1hSlug(String base) {
@@ -59,9 +77,25 @@ public class SlugUtil {
         return base + "-" + datePart + "-" + hourPart + "-et";
     }
 
+    public static String current1hSlug(String base) {
+        ZonedDateTime currentHour = ZonedDateTime.now(ZoneId.of("America/New_York"))
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0);
+        String datePart = currentHour.format(DateTimeFormatter.ofPattern("MMMM-d-yyyy", Locale.ENGLISH)).toLowerCase();
+        String hourPart = currentHour.format(DateTimeFormatter.ofPattern("ha", Locale.ENGLISH)).toLowerCase();
+        return base + "-" + datePart + "-" + hourPart + "-et";
+    }
+
     public static String nextDailySlug(String base) {
         LocalDate tomorrow = LocalDate.now(ZoneOffset.UTC).plusDays(1);
         String formatted = tomorrow.format(DateTimeFormatter.ofPattern("MMMM-d-yyyy", Locale.ENGLISH)).toLowerCase();
+        return base + "-on-" + formatted;
+    }
+
+    public static String currentDailySlug(String base) {
+        LocalDate today = LocalDate.now(ZoneOffset.UTC);
+        String formatted = today.format(DateTimeFormatter.ofPattern("MMMM-d-yyyy", Locale.ENGLISH)).toLowerCase();
         return base + "-on-" + formatted;
     }
 

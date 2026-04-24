@@ -1,134 +1,115 @@
 {
-    // ---------- Java / JDK ----------
-    // Path-based Java settings (java.jdt.ls.java.home, java.configuration.runtimes,
-    // spring-boot.ls.java.home) are NOT configured here because the Red Hat Java
-    // extension does not expand ${env:...} in path fields — it expects literal paths.
-    // Each developer should add those settings to their USER settings.json. See
-    // docs/DEV-SETUP.md for the exact snippet. Workspace settings here stay portable.
+    // ── Java Runtime ──────────────────────────────────────────────────────
+    "java.jdt.ls.java.home": "${env:JAVA_HOME_23}",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-23",
+            "path": "${env:JAVA_HOME_23}",
+            "default": true
+        }
+    ],
+    // ── Maven ─────────────────────────────────────────────────────────────
+    "java.configuration.maven.globalSettings": "",
+    "maven.executable.preferMavenWrapper": true,
+    "maven.terminal.useJavaHome": true,
+    "maven.view": "hierarchical", // Multi-modül yapısı için hiyerarşik görünüm
+    "java.maven.downloadSources": true, // Kaynak kodları indir (kütüphane içine geç)
+    "java.maven.updateSnapshots": false,
+    // ── Derleme & Proje ───────────────────────────────────────────────────
+    "java.autobuild.enabled": true,
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.debug.settings.onBuildFailureProceed": true,
-    "java.debug.settings.hotCodeReplace": "auto",
-    "java.debug.settings.console": "integratedTerminal",
-    "java.saveActions.organizeImports": true,
-    "java.sources.organizeImports.staticStarThreshold": 5,
-    "java.sources.organizeImports.starThreshold": 99,
-    "java.format.settings.profile": "GoogleStyle",
-    "java.inlayHints.parameterNames.enabled": "literals",
+    "java.sources.organizeImports.starThreshold": 5,
+    "java.sources.organizeImports.staticStarThreshold": 3,
     "java.completion.importOrder": [
         "java",
         "javax",
         "jakarta",
         "org",
         "com",
-        "apprecode"
+        "polymarket"
     ],
-    "java.eclipse.downloadSources": true,
-    "java.maven.downloadSources": true,
-
-    // ---------- Lombok / Annotation Processing ----------
-    // The vscjava.vscode-lombok extension integrates with JDT LS automatically via its
-    // bundled plugin jar; no -javaagent flag is required. We only bump heap here so large
-    // generated sources (OpenAPI) don't starve the language server.
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms256m",
-
-    // ---------- Maven ----------
-    // Relies on `mvn` being on PATH. If you use a wrapper or a non-standard location,
-    // override `maven.executable.path` locally in .vscode/settings.local.json.
-    // The Maven terminal extension DOES expand ${env:...}, so JAVA_HOME passthrough
-    // works here as long as the developer sets JAVA_HOME_23 in their shell.
-    "maven.view": "flat",
-    "maven.terminal.useJavaHome": true,
-    "maven.terminal.customEnv": [
-        {
-            "environmentVariable": "JAVA_HOME",
-            "value": "${env:JAVA_HOME_23}"
-        }
+    "java.cleanup.actionsOnSave": [
+        "organizeImports",
+        "qualifyStaticMembers"
     ],
-    "java.import.maven.enabled": true,
-    "java.configuration.maven.userSettings": null,
-    "java.configuration.maven.globalSettings": null,
-
-    // ---------- Spring Boot ----------
-    "spring-boot.ls.problem.application-properties.unknown-property": "WARNING",
-    "spring-boot.ls.problem.application-properties.value-type-mismatch": "ERROR",
-    "spring-boot.ls.problem.application-yaml.unknown-property": "WARNING",
-    "spring.initializr.defaultLanguage": "Java",
-    "spring.initializr.defaultJavaVersion": "23",
-    "boot-java.rewrite.reconcile": true,
-    "boot-java.codelens.on": true,
-    "boot-java.highlight-codelens.on": true,
-
-    // ---------- MongoDB ----------
-    "mongodb.connectionSaving.hideOptionToChooseWhereToSaveNewConnections": false,
-    "mongodb.useDefaultTemplateForJupyterNotebooks": false,
-    "mdb.persistOIDCTokens": false,
-    "mdb.trackUsage": false,
-
-    // ---------- File / Editor ----------
-    "files.encoding": "utf8",
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "files.eol": "\n",
+    // ── Test ──────────────────────────────────────────────────────────────
+    "java.test.config": {
+        "vmArgs": [
+            "-Dspring.profiles.active=test"
+        ]
+    },
+    // ── Spring Boot ───────────────────────────────────────────────────────
+    "spring-boot.ls.java.home": "${env:JAVA_HOME_23}",
+    "spring-boot.ls.problem.application-properties.UNKNOWN_PROPERTY_KEY": "WARNING",
+    // ── Editör ────────────────────────────────────────────────────────────
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    },
+    "editor.rulers": [
+        120
+    ], // Java satır uzunluğu sınırı
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.inlayHints.enabled": "onUnlessPressed", // Tip hintsları Cmd basınca gizle
+    // ── Dosya İlişkilendirmeleri ──────────────────────────────────────────
+    "files.associations": {
+        "*.yml": "yaml",
+        "*.yaml": "yaml",
+        "application*.yml": "spring-boot-properties-yaml",
+        "application*.properties": "spring-boot-properties"
+    },
     "files.exclude": {
         "**/.classpath": true,
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true,
-        "**/target": true,
-        "**/.DS_Store": true
+        "**/__pycache__": true
     },
     "files.watcherExclude": {
         "**/target/**": true,
-        "**/.mvn/**": false
+        "**/.git/objects/**": true
     },
-    "search.exclude": {
-        "**/target": true,
-        "**/.generated/**": true,
-        "**/.vscode": false
-    },
-    "[java]": {
-        "editor.defaultFormatter": "redhat.java",
-        "editor.tabSize": 4,
-        "editor.insertSpaces": true,
-        "editor.formatOnSave": false,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
+    // ── YAML / OpenAPI ────────────────────────────────────────────────────
+    "yaml.schemas": {
+        "https://json.schemastore.org/spring-boot-application-2.7.json": [
+            "src/main/resources/application*.yml",
+            "src/main/resources/application*.yaml"
+        ]
     },
     "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.tabSize": 2,
-        "editor.autoIndent": "keep",
-        "editor.formatOnSave": false
+        "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "[xml]": {
-        "editor.defaultFormatter": "redhat.vscode-xml",
-        "editor.tabSize": 4
+        "editor.defaultFormatter": "redhat.vscode-xml"
     },
-
-    // ---------- YAML schema mapping (Spring Boot application.yml) ----------
-    "yaml.schemas": {
-        "https://json.schemastore.org/spring-application.json": [
-            "**/application.yml",
-            "**/application-*.yml",
-            "**/application.yaml",
-            "**/application-*.yaml"
-        ],
-        "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json": [
-            "**/swagger/**/*.yaml",
-            "**/swagger/*.yaml"
-        ]
+    // ── Terminal ──────────────────────────────────────────────────────────
+    "terminal.integrated.env.osx": {
+        "JAVA_HOME": "${env:JAVA_HOME_23}"
     },
-
-    // ---------- Test ----------
-    "java.test.config": {
-        "vmArgs": [
-            "-Dspring.profiles.active=local",
-            "-Dfile.encoding=UTF-8"
-        ]
+    // ── Git ───────────────────────────────────────────────────────────────
+    "git.autofetch": true,
+    "gitlens.hovers.currentLine.over": "line",
+    // ── SonarLint ─────────────────────────────────────────────────────────
+    "sonarlint.rules": {
+        "java:S106": {
+            "level": "off"
+        } // System.out.println — geliştirmede tamam
     },
-
-    // ---------- Red Hat telemetry off (CI hygiene) ----------
-    "redhat.telemetry.enabled": false
+    // ── İkonlar ───────────────────────────────────────────────────────────
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.folders.associations": {
+        "sync": "sync",
+        "rest-api": "api",
+        "model": "class",
+        "common": "shared",
+        "repository": "database",
+        "config": "config",
+        "util": "tools",
+        "service": "middleware"
+    }
 }

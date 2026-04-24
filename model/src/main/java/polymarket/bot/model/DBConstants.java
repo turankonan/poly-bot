@@ -117,6 +117,15 @@ public interface DBConstants {
         String RELNAME = "relname";
     }
 
+    interface EVENT_MARKET_PRICE {
+        String COLLECTION_NAME = "eventMarketPrice";
+        String SLUG = "slug";
+        String TOKEN_ID = "tokenId";
+        String SELL_PRICE = "sellPrice";
+        String BUY_PRICE = "buyPrice";
+        String SIDE = "side";
+    }
+
     interface CATEGORY {
         String ID = "id";
         String LABEL = "label";

@@ -7,6 +7,28 @@ servers:
 tags:
   - name: price
 paths:
+  /books:
+    post:
+      tags:
+        - book
+      operationId: book_detail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BookDetailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BookDetail"
   /prices:
     post:
       tags:
@@ -29,6 +51,11 @@ paths:
                 $ref: "#/components/schemas/PriceDetailResponse"
 components:
   schemas:
+    BookDetailRequest:
+      type: object
+      properties:
+        token_id:
+          type: string
     PriceDetailRequest:
       type: object
       properties:
@@ -39,14 +66,47 @@ components:
           enum:
             - BUY
             - SELL
+    BookDetail:
+      type: object
+      properties:
+        market:
+          type: string
+        asset_id:
+          type: string
+        timestamp:
+          type: string
+        hash:
+          type: string
+        min_order_size:
+          type: string
+        tick_size:
+          type: string
+        neg_risk:
+          type: boolean
+          default: false
+        last_trade_price:
+          type: string
+        bids:
+          type: array
+          items:
+            $ref: "#/components/schemas/BookPrice"
+        asks:
+          type: array
+          items:
+            $ref: "#/components/schemas/BookPrice"
+    BookPrice:
+      type: object
+      properties:
+        price:
+          type: string
+        size:
+          type: string
     PriceDetailResponse:
       type: object
-      description: Map of token ID to best price by side
       additionalProperties:
         $ref: '#/components/schemas/TokenBestPrice'
     TokenBestPrice:
       type: object
-      description: Best price for a single side (BUY or SELL) of a token
       properties:
         BUY:
           type: number
