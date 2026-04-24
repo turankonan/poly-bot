@@ -1,0 +1,66 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "EventService",
+            "request": "launch",
+            "mainClass": "polymarket.com.tr.dor.sync.service.EventService",
+            "projectName": "sync"
+        },
+        {
+            "type": "java",
+            "name": "EventService",
+            "request": "launch",
+            "mainClass": "apprecode.com.tr.dor.sync.service.EventService",
+            "projectName": "sync"
+        },
+        {
+            "type": "java",
+            "name": "sync-run (local)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "polymarket.bot.sync.SyncApplication",
+            "projectName": "sync",
+            "args": "--spring.profiles.active=local",
+            "vmArgs": "-Dfile.encoding=UTF-8 -Dspring.devtools.restart.enabled=false",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "api-run (local)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "polymarket.bot.api.ApiApplication",
+            "projectName": "api",
+            "args": "--spring.profiles.active=local",
+            "vmArgs": "-Dfile.encoding=UTF-8 -Dspring.devtools.restart.enabled=false",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "api-run (dev remote DB)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "polymarket.bot.api.ApiApplication",
+            "projectName": "api",
+            "args": "--spring.profiles.active=dev",
+            "vmArgs": "-Dfile.encoding=UTF-8",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "Attach to remote JVM (5005)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        }
+    ],
+    "compounds": [
+        {
+            "name": "api + sync (local)",
+            "configurations": ["api-run (local)", "sync-run (local)"],
+            "stopAll": true
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+server:
+  port: 5151
+  servlet:
+    context-path: /
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/templates/
+      suffix: .html
+  jackson:
+    default-property-inclusion: non_null
+  data:
+    mongodb:
+      auto-index-creation: true
+
+polymarket.gamma.api.url: https://gamma-api.polymarket.com/

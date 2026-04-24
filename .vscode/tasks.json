@@ -1,0 +1,73 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            "JAVA_HOME": "${env:JAVA_HOME_23}"
+        }
+    },
+    "tasks": [
+        {
+            "label": "mvn: clean install (skip tests)",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["clean", "install", "-DskipTests"],
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "mvn: clean package",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["clean", "package"],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "mvn: compile (all modules)",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["compile"],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "mvn: test",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test"],
+            "group": { "kind": "test", "isDefault": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "mvn: regenerate OpenAPI (api)",
+            "type": "shell",
+            "command": "mvn",
+            "args": [
+                "-pl", "api",
+                "-am",
+                "generate-sources"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "mvn: regenerate OpenAPI (foodics-api)",
+            "type": "shell",
+            "command": "mvn",
+            "args": [
+                "-pl", "foodics-api",
+                "-am",
+                "generate-sources"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "mvn: dependency tree",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["dependency:tree", "-DoutputType=text"],
+            "problemMatcher": []
+        }
+    ]
+}

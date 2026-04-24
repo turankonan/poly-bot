@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+          <groupId>polymarket.bot</groupId>
+          <artifactId>gateway</artifactId>
+          <version>1.0.0</version>
+    </parent>
+
+    <artifactId>rest-api</artifactId>
+
+    <properties>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>polymarket.bot</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.0.1</version>
+
+                <configuration>
+                    <generatorName>java</generatorName>
+                    <generateApiDocumentation>false</generateApiDocumentation>
+                    <generateModelDocumentation>false</generateModelDocumentation>
+                    <generateApiTests>false</generateApiTests>
+                    <generateModelTests>false</generateModelTests>
+                    <modelNamePrefix>B</modelNamePrefix>
+                    <modelNameSuffix>DTO</modelNameSuffix>
+                    <configOptions>
+                        <library>retrofit2</library>
+                        <dateLibrary>java8-localdatetime</dateLibrary>
+                        <interfaceOnly>true</interfaceOnly>
+                        <implicitHeaders>true</implicitHeaders>
+                        <sortParamsByRequiredFlag>false</sortParamsByRequiredFlag>
+                        <additionalProperties>
+                            <useOptional>false</useOptional>
+                        </additionalProperties>
+                        <useBeanValidation>true</useBeanValidation>
+                        <performBeanValidation>true</performBeanValidation>
+                        <useJakarta>true</useJakarta>
+                    </configOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger/gamma-api.yaml</inputSpec>
+                            <apiPackage>polymarket.bot.rest.gamma.api</apiPackage>
+                            <modelPackage>polymarket.bot.rest.gamma.api.model</modelPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,38 @@
+{
+    // Workspace-recommended extensions for this Java / Spring Boot / MongoDB project.
+    // VS Code will prompt the user to install these when the workspace is opened.
+    "recommendations": [
+        // --- Core Java toolchain ---
+        "vscjava.vscode-java-pack",        // Java Extension Pack (JDT LS + Debugger + Test + Maven + Project Manager + IntelliCode)
+        "redhat.java",                     // Language support for Java (Eclipse JDT LS) — included in pack, pinned explicitly
+        "vscjava.vscode-maven",            // Maven for Java
+        "vscjava.vscode-java-debug",       // Java Debugger
+        "vscjava.vscode-java-test",        // Java Test Runner (JUnit/TestNG)
+        "vscjava.vscode-java-dependency",  // Project Manager for Java
+        "vscjava.vscode-lombok",           // Lombok annotation support (needed for this codebase)
+
+        // --- Spring Boot tooling ---
+        "vmware.vscode-boot-dev-pack",     // Spring Boot Extension Pack
+        "vmware.vscode-spring-boot",       // Spring Boot Tools (application.yml IntelliSense, live beans, etc.)
+        "vscjava.vscode-spring-boot-dashboard",
+        "vscjava.vscode-spring-initializr",
+
+        // --- MongoDB ---
+        "mongodb.mongodb-vscode",          // MongoDB for VS Code (connect, run queries, Playgrounds)
+
+        // --- YAML / XML / OpenAPI ---
+        "redhat.vscode-yaml",              // YAML language support (application.yml, swagger specs)
+        "redhat.vscode-xml",               // XML language support (pom.xml, logback)
+        "42crunch.vscode-openapi",         // OpenAPI (Swagger) editor for swagger/*.yaml files
+
+        // --- Quality of life ---
+        // "usernamehw.errorlens",            // Inline diagnostics
+        "eamodio.gitlens",                 // Git blame / history inline
+        "gruntfuggly.todo-tree",           // TODO/FIXME tracker
+        "streetsidesoftware.code-spell-checker"
+    ],
+    "unwantedRecommendations": [
+        // Project is Maven-only; Gradle extension auto-starts unnecessary build-servers.
+        "vscjava.vscode-gradle"
+    ]
+}

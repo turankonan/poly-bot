@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(f'L{d[\\\\\"line\\\\\"]}: {d[\\\\\"message\\\\\"][:120]}'\\) for d in data]\")",
+      "Bash(sort -t: -k1 -V)",
+      "Read(//Users/turankonan/.m2/repository/polymarket/bot/rest-api/1.0.0/**)",
+      "Bash(jar tf *)",
+      "Bash(mvn compile *)"
+    ]
+  }
+}

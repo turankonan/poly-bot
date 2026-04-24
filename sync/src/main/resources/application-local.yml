@@ -1,0 +1,7 @@
+logging:
+  config: classpath:log/logback-local.xml
+
+spring:
+  mongodb:
+    uri: mongodb://localhost:27017/polymarket
+
